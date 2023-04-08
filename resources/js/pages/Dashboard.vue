@@ -12,7 +12,11 @@
           >
         </li>
 
-        <li><a href="">Categories List</a></li>
+        <li>
+          <router-link :to="{ name: 'CategoriesList' }"
+            >Categories List</router-link
+          >
+        </li>
       </ul>
     </div>
   </div>
@@ -37,6 +41,7 @@ export default {
         }
       });
   },
+
   methods: {
     logout() {
       axios
@@ -60,6 +65,7 @@ export default {
   height: 100vh;
   padding-top: 15vh;
 }
+
 .logout {
   position: absolute;
   top: 30px;
