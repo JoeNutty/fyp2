@@ -92,13 +92,16 @@ export default {
     ShowOverlay() {
       this.overlayVisibility = true;
     },
+
     hideOverlay() {
       this.overlayVisibility = false;
     },
+
     updateSidebar() {
       this.loggedIn = !this.loggedIn;
     },
   },
+
   mounted() {
     if (localStorage.getItem("authenticated")) {
       this.loggedIn = true;
