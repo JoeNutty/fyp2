@@ -64,21 +64,19 @@ const routes = [
         path: "/categories/create",
         name: "CreateCategories",
         component: CreateCategories,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, requiresAdmin: true },
     },
-
     {
         path: "/categories",
         name: "CategoriesList",
         component: CategoriesList,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, requiresAdmin: true },
     },
-
     {
         path: "/categories/:id/edit",
         name: "EditCategories",
         component: EditCategories,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, requiresAdmin: true },
         props: true
     },
 
@@ -112,16 +110,29 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
     const authenticated = localStorage.getItem("authenticated");
+    const role = localStorage.getItem("role");
 
+    // If the route requires a guest and the user is authenticated
     if (to.meta.requiresGuest && authenticated) {
         return {
             name: "Dashboard",
         };
-    } else if (to.meta.requiresAuth && !authenticated) {
+    }
+
+    // If the route requires authentication and the user is not authenticated
+    else if (to.meta.requiresAuth && !authenticated) {
         return {
             name: "Login",
         };
     }
+
+    // If the route requires an admin and the user is not an admin
+    else if (to.meta.requiresAdmin && role !== 'admin') {
+        return {
+            name: "Home", // Redirect to home or any other route
+        };
+    }
 });
+
 
 export default router;

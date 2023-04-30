@@ -2,7 +2,8 @@
   <div id="backend-view">
     <div class="logout"><a href="#" @click="logout">Log out</a></div>
     <h1 class="heading">Dashboard</h1>
-    <span>Hi {{ name }}!</span>
+    <span>Hi {{ name }}!</span><br>
+    <span>Role: {{ role }}</span>
     <div class="links">
       <ul>
         <li>
@@ -13,16 +14,12 @@
             >Posts List</router-link
           >
         </li>
-        <li>
-          <router-link :to="{ name: 'CreateCategories' }"
-            >Create Categories</router-link
-          >
-        </li>
-        <li>
-          <router-link :to="{ name: 'CategoriesList' }"
-            >Categories List</router-link
-          >
-        </li>
+        <li v-if="role === 'admin'">
+      <router-link :to="{ name: 'CreateCategories' }">Create Categories</router-link>
+    </li>
+    <li v-if="role === 'admin'">
+      <router-link :to="{ name: 'CategoriesList' }">Categories List</router-link>
+    </li>
       </ul>
     </div>
   </div>
@@ -33,12 +30,13 @@ export default {
   data() {
     return {
       name: "",
+      role:""
     };
   },
   mounted() {
     axios
       .get("/api/user")
-      .then((response) => (this.name = response.data.name))
+      .then((response) => (this.name = response.data.name, this.role = response.data.role))
       .catch((error) => {
         if (error.response.status === 401) {
           this.$emit("updateSidebar");

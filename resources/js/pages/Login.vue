@@ -25,19 +25,30 @@ export default {
     };
   },
   methods: {
-    submit() {
-      axios
-        .post("/api/login", this.fields)
-        .then(() => {
-          this.$router.push({ name: "Dashboard" });
-          localStorage.setItem("authenticated", "true");
-          this.$emit("updateSidebar");
-        })
-        .catch((error) => {
-          this.errors = error.response.data.errors;
-        });
-    },
+  submit() {
+    axios
+      .post("/api/login", this.fields)
+      .then((response) => {
+        const user = response.data;
+        // after successful login, make another request to fetch user details
+        axios
+          .get("/api/user")
+          .then((response) => {
+            localStorage.setItem("role", response.data.role);
+            this.$router.push({ name: "Dashboard" });
+            localStorage.setItem("authenticated", "true");
+            this.$emit("updateSidebar");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        this.errors = error.response.data.errors;
+      });
   },
+}
+
 };
 </script>
 

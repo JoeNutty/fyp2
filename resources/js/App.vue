@@ -3,7 +3,7 @@
     <!-- sidebar -->
     <div class="sidebar" :class="{ showOverlay: overlayVisibility }">
       <span class="closeButton" @click="hideOverlay">&times;</span>
-      <p class="brand-title"><a href="">Alphayo Blog</a></p>
+      <p class="brand-title" ><strong>Scam Awareness Blog</strong></p>
 
       <div class="side-links">
         <ul>
@@ -46,15 +46,7 @@
       </div>
 
       <!-- sidebar footer -->
-      <footer class="sidebar-footer">
-        <div>
-          <a href=""><i class="fab fa-facebook-f"></i></a>
-          <a href=""><i class="fab fa-instagram"></i></a>
-          <a href=""><i class="fab fa-twitter"></i></a>
-        </div>
 
-        <small>&copy; 2021 Alphayo Blog</small>
-      </footer>
     </div>
     <!-- Menu Button -->
     <div class="menuButton" @click="ShowOverlay">
@@ -81,7 +73,7 @@
         <a href=""><i class="fab fa-instagram"></i></a>
         <a href=""><i class="fab fa-twitter"></i></a>
       </div>
-      <small>&copy; 2021 Alphayo Blog</small>
+
     </footer>
   </div>
 </template>
