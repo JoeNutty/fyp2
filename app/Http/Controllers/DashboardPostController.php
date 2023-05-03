@@ -10,8 +10,15 @@ class DashboardPostController extends Controller
 {
     public function index()
     {
-        return PostResource::collection(
-            Post::where('user_id', auth()->user()->id)->latest()->get()
-        );
+        // Get the authenticated user
+        $user = auth()->user();
+
+        if ($user->role === 'admin') {
+            // If the user is an admin, return all posts
+            return PostResource::collection(Post::latest()->get());
+        } else {
+            // If the user is not an admin, return only their posts
+            return PostResource::collection(Post::where('user_id', $user->id)->latest()->get());
+        }
     }
 }

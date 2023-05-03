@@ -14,6 +14,8 @@ import EditCategories from "../pages/categories/EditCategories.vue";
 import CreatePosts from "../pages/posts/CreatePosts.vue";
 import DashboardPostsList from "../pages/posts/DashboardPostsList.vue";
 import EditPosts from "../pages/posts/EditPosts.vue";
+import Profile from "../pages/userfunctions/Profile.vue";
+import EditAccount from "../pages/userfunctions/EditAccount.vue";
 
 const routes = [
     {
@@ -53,6 +55,18 @@ const routes = [
         name: "Register",
         component: Register,
         meta: { requiresGuest: true }
+    },
+    {
+        path: "/profile",
+        name: "Profile",
+        component: Profile,
+        meta: { requiresAuth: true }
+    },
+    {
+        path: "/editaccount",
+        name: "EditAccount",
+        component: EditAccount,
+        meta: { requiresAuth: true }
     },
     {
         path: "/dashboard",
