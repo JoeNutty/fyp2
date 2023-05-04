@@ -48,7 +48,7 @@ export default {
   },
   mounted() {
     axios
-      .get("/api/posts/" + this.slug)
+      .get("/api/public-posts/" + this.slug)
       .then((response) => (this.post = response.data.data))
       .catch((error) => {
         console.log(error);

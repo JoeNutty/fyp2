@@ -23,6 +23,9 @@
     <li v-if="role === 'admin'">
       <router-link :to="{ name: 'CategoriesList' }">Categories List</router-link>
     </li>
+    <li v-if="role === 'admin'">
+      <router-link :to="{ name: 'ViewUsers' }">User List</router-link>
+    </li>
       </ul>
     </div>
   </div>

@@ -16,6 +16,8 @@ import DashboardPostsList from "../pages/posts/DashboardPostsList.vue";
 import EditPosts from "../pages/posts/EditPosts.vue";
 import Profile from "../pages/userfunctions/Profile.vue";
 import EditAccount from "../pages/userfunctions/EditAccount.vue";
+import ViewUsers from "../pages/adminfunctions/ViewUsers.vue";
+import UserDetails from "../pages/adminfunctions/UserDetails.vue";
 
 const routes = [
     {
@@ -92,6 +94,18 @@ const routes = [
         component: EditCategories,
         meta: { requiresAuth: true, requiresAdmin: true },
         props: true
+    },
+    {
+        path: "/viewusers",
+        name: "ViewUsers",
+        component: ViewUsers,
+        meta: { requiresAuth: true, requiresAdmin: true },
+    },
+    {
+        path: "/userdetails/:id",
+        name: "UserDetails",
+        component: UserDetails,
+        meta: { requiresAuth: true, requiresAdmin: true },
     },
 
     {

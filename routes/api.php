@@ -27,6 +27,10 @@ Route::middleware('auth:sanctum')->put('/user/{user}', [UserController::class, '
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/users/{id}', [UserController::class, 'show']);
+Route::middleware('auth:sanctum')->delete('/users/{id}', [UserController::class, 'destroy']);
+
 
 Route::middleware('auth:sanctum')->post('logout', [AuthenticatedSessionController::class, 'destroy']);
 // categories
@@ -51,6 +55,9 @@ Route::get('categories', [CategoryController::class, 'index']);
 // posts
 Route::get('home-posts', [HomeController::class, 'index']);
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
+// Public route for viewing a single post
+Route::get('public-posts/{post:slug}', [PostController::class, 'publicShow']);
+
 Route::get('posts', [PostController::class, 'index']);
 Route::get('related-posts/{post:slug}', [RelatedPostController::class, 'index']);
 Route::get('dashboard-posts', [DashboardPostController::class, 'index']);
