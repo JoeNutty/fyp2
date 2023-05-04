@@ -22,7 +22,7 @@
       />
 
       <button type="submit">Sign Up</button>
-      <span>Have an account?<a href=""> Log in</a></span>
+      <span>Have an account? <router-link :to="{ name: 'Login' }">Log in</router-link></span>
     </form>
   </div>
 </template>

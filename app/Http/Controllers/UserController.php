@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Post;
 
 
 use Illuminate\Http\Request;
@@ -55,6 +56,15 @@ public function destroy($id)
     $user->delete();
 
     return response()->json(['message' => 'User deleted successfully']);
+}
+public function deletePosts($id)
+{
+    $user = User::findOrFail($id);
+
+    // Delete all the user's posts
+    $user->posts()->delete();
+
+    return response()->json(null, 204);
 }
 
 

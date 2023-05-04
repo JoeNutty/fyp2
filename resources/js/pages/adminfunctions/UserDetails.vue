@@ -1,24 +1,35 @@
 <template>
-    <div class="user-details">
-        <template v-if="user">
-            <h1>User Details</h1>
-            <dl>
-                <dt>Name</dt>
-                <dd>{{ user.name }}</dd>
-                <dt>Email</dt>
-                <dd>{{ user.email }}</dd>
-                <dt>Account Created At</dt>
-                <dd>{{ formattedDate(user.created_at) }}</dd>
-                <dt>Role</dt>
-                <dd>{{ user.role }}</dd>
-                <dt>Number of Posts</dt>
-                <dd>{{ user.posts_count }}</dd>
-            </dl>
-            <button class="delete-button" @click="deleteUser">Delete User</button>
-        </template>
-        <template v-else>
-            <div class="loading">Loading...</div>
-        </template>
+    <div id="backend-view">
+        <div class="user-details">
+            <template v-if="user">
+                <h1>User Details</h1>
+                <dl>
+                    <dt>Name</dt>
+                    <dd>{{ user.name }}</dd>
+                    <dt>Email</dt>
+                    <dd>{{ user.email }}</dd>
+                    <dt>Account Created At</dt>
+                    <dd>{{ formattedDate(user.created_at) }}</dd>
+                    <dt>Role</dt>
+                    <dd>{{ user.role }}</dd>
+                    <dt>Number of Posts</dt>
+                    <dd>{{ user.posts_count }}</dd>
+                </dl>
+                <div class="button-container">
+                    <button v-if="user.role !== 'admin'" class="delete-button" @click="deleteUser">
+                        Delete User
+                    </button>
+                    <router-link to="/viewusers" tag="button" class="back-button">
+                        Back to View Users
+                    </router-link>
+                </div>
+
+
+            </template>
+            <template v-else>
+                <div class="loading">Loading...</div>
+            </template>
+        </div>
     </div>
 </template>
   
@@ -36,6 +47,7 @@ export default {
     data() {
         return {
             user: null,
+            success: false,
         };
     },
 
@@ -64,16 +76,22 @@ export default {
     methods: {
         // ... other methods ...
 
-        deleteUser() {
-            axios
-                .delete(`/api/users/${this.$route.params.id}`)
-                .then(() => {
-                    this.$router.push('/viewusers');// Redirect to another page or show a success message
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        },
+        async deleteUser() {
+            try {
+                // Delete user's posts
+                await axios.delete(`/api/users/${this.$route.params.id}/posts`);
+
+                // Delete user
+                await axios.delete(`/api/users/${this.$route.params.id}`);
+
+                // Redirect to another page or show a success message
+                this.$router.push('/viewusers');
+                
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
     },
 
 };
@@ -81,8 +99,13 @@ export default {
   
 <style scoped>
 .user-details {
-    max-width: 600px;
-    margin: 0 auto;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 15px;
 }
 
 h1 {
@@ -111,17 +134,47 @@ dd {
     font-size: 2rem;
     margin: 2rem;
 }
+
 .delete-button {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 1rem;
-  margin-top: 2rem;
-  cursor: pointer;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 1rem;
+    margin-top: 2rem;
+    cursor: pointer;
 }
 
 .delete-button:hover {
-  background-color: darkred;
+    background-color: darkred;
+}
+
+.back-button {
+    background-color: #3490dc;
+    color: white;
+    border: none;
+    padding: 1rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.back-button:hover {
+    background-color: #2779bd;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#backend-view {
+    text-align: center;
+    background-color: #f3f4f6;
+    height: 100vh;
+    padding-top: 15vh;
 }
 </style>
   

@@ -13,13 +13,23 @@
           <input type="text" id="name" v-model="field.name" />
           <span v-if="errors.name" class="error">{{ errors.name[0] }}</span>
 
+          <label for="">Category Type:</label>
+          <div class="radio-buttons">
+            <label>
+              <input type="radio" v-model="field.is_admin" value="0" />
+              <span>Public Category</span>
+            </label>
+            <label>
+              <input type="radio" v-model="field.is_admin" value="1" />
+              <span>Admin Only Category</span>
+            </label>
+          </div>
+
           <input type="submit" value="Submit" />
         </form>
       </div>
       <div class="create-categories">
-        <router-link :to="{ name: 'CategoriesList' }"
-          >Categories List <span>&#8594;</span></router-link
-        >
+        <router-link :to="{ name: 'CategoriesList' }">Categories List <span>&#8594;</span></router-link>
       </div>
     </div>
   </div>
@@ -62,4 +72,14 @@ export default {
   height: 90vh;
   padding: 50px;
 }
+.radio-buttons {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+
+.radio-buttons label {
+  margin-right: 10px;
+}
+
 </style>

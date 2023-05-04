@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/users/{id}', [UserController::class, 'show']);
 Route::middleware('auth:sanctum')->delete('/users/{id}', [UserController::class, 'destroy']);
+Route::middleware('auth:sanctum')->delete('/users/{id}/posts', [UserController::class, 'deletePosts']);
+
 
 
 Route::middleware('auth:sanctum')->post('logout', [AuthenticatedSessionController::class, 'destroy']);
@@ -43,6 +45,7 @@ Route::middleware('auth:sanctum')->delete('categories/{category}', [CategoryCont
 Route::middleware('auth:sanctum')->post('posts', [PostController::class, 'store']);
 Route::middleware('auth:sanctum')->put('posts/{post:slug}', [PostController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('posts/{post:slug}', [PostController::class, 'destroy']);
+
 
 
 //////////////////////////////////////////////// PUBLIC ROUTES //////////////////////////////////////////////// 

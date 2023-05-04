@@ -90,6 +90,7 @@
             setTimeout(() => {
               this.success = false;
             }, 2500);
+            this.$router.push({ name: "Dashboard" });
           })
           .catch((error) => {
             this.errors = error.response.data.errors;

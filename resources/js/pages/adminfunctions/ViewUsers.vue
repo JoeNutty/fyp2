@@ -1,28 +1,35 @@
-<template>
-    <div class="admin-users">
-        <h1>User List</h1>
-        <table class="user-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Account Created At</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="user in users" :key="user.id">
-                    <td>
-                        <router-link :to="{ name: 'UserDetails', params: { id: user.id } }">
-                            {{ user.name }}
-                        </router-link>
-                    </td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ formattedDate(user.created_at) }}</td>
-                    <td>{{ user.role }}</td>
-                </tr>
-            </tbody>
-        </table>
+<template >
+    <div id="backend-view">
+        <div class="admin-users">
+            <h1>User List</h1>
+            <div class="success-msg" v-if="deleteSuccess">
+                <i class="fa fa-check"></i>
+                User deleted successfully
+            </div>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Account Created At</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users" :key="user.id">
+                        <td>
+                            <router-link :to="{ name: 'UserDetails', params: { id: user.id } }" class="clickable-link">
+                                {{ user.name }}
+                            </router-link>
+                        </td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ formattedDate(user.created_at) }}</td>
+                        <td>{{ user.role }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 <script>
@@ -31,12 +38,13 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            users: []
+            users: [],
+            
         }
     },
     computed: {
         formattedDate() {
-            return function(dateString) {
+            return function (dateString) {
                 const date = new Date(dateString)
                 return date.toLocaleDateString("en-US", {
                     day: 'numeric', month: 'long', year: 'numeric',
@@ -58,24 +66,49 @@ export default {
 
 
 <style scoped>
-    .admin-users {
-        padding: 20px;
-    }
+.admin-users {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    max-width: 1000px;
+    padding: 15px;
+    border-radius: 15px;
+}
 
-    .user-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-    .user-table th,
-    .user-table td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
+.user-table th,
+.user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
 
-    .user-table th {
-        background-color: #4CAF50;
-        color: white;
-    }
+.user-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#backend-view {
+    text-align: center;
+    background-color: #f3f4f6;
+    height: 100vh;
+    padding-top: 15vh;
+}
+
+.clickable-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.success-msg {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
 </style>
