@@ -1,16 +1,13 @@
 <template>
   <div class="request-category">
     <h1>Request a Category</h1>
+    <div v-if="success" class="alert alert-success" v-on:click="success = false">
+      {{ successMessage }}
+    </div>
     <form @submit.prevent="submitRequest">
       <div class="form-group">
         <label for="categoryName">Category Name</label>
-        <input
-          type="text"
-          id="categoryName"
-          v-model="categoryName"
-          placeholder="Enter category name"
-          required
-        />
+        <input type="text" id="categoryName" v-model="categoryName" placeholder="Enter category name" required />
       </div>
       <button type="submit">Request Category</button>
     </form>
@@ -18,16 +15,31 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       categoryName: '',
+      successMessage: '',
+      success: false,
     };
   },
   methods: {
     async submitRequest() {
-      // Submit the category request to the server
-      // Display a success message or handle errors
+      try {
+        const response = await axios.post('/api/category-requests', {
+          name: this.categoryName
+        });
+        this.successMessage = 'Request successful!';
+        this.success = true;
+        this.categoryName = '';
+        console.log(response.data);
+        // Display a success message or handle errors
+      } catch (error) {
+        console.log(error.response.data);
+        // Display an error message or handle errors
+      }
     },
   },
 };
@@ -69,5 +81,15 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+.alert {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background-color: #28a745;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
 }
 </style>

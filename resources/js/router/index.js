@@ -18,6 +18,8 @@ import Profile from "../pages/userfunctions/Profile.vue";
 import EditAccount from "../pages/userfunctions/EditAccount.vue";
 import ViewUsers from "../pages/adminfunctions/ViewUsers.vue";
 import UserDetails from "../pages/adminfunctions/UserDetails.vue";
+import AdminCatReq from "../pages/adminfunctions/AdminCategoryRequests.vue";
+import ViewRequests from "../pages/userfunctions/ViewRequests.vue";
 
 const routes = [
     {
@@ -39,6 +41,7 @@ const routes = [
         path: "/contact",
         name: "Contact",
         component: Contact,
+        meta: { requiresAuth: true }
     },
     {
         path: "/blog/:slug",
@@ -71,6 +74,12 @@ const routes = [
         meta: { requiresAuth: true }
     },
     {
+        path: '/view-requests',
+        name: 'ViewRequests',
+        component: ViewRequests,
+        meta: { requiresAuth: true },
+      },
+    {
         path: "/dashboard",
         name: "Dashboard",
         component: Dashboard,
@@ -99,6 +108,12 @@ const routes = [
         path: "/viewusers",
         name: "ViewUsers",
         component: ViewUsers,
+        meta: { requiresAuth: true, requiresAdmin: true },
+    },
+    {
+        path: "/admincatreq",
+        name: "AdminCatReq",
+        component: AdminCatReq,
         meta: { requiresAuth: true, requiresAdmin: true },
     },
     {

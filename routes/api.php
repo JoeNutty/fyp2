@@ -46,7 +46,10 @@ Route::middleware('auth:sanctum')->delete('categories/{category}', [CategoryCont
 Route::middleware('auth:sanctum')->get('/category-requests', [CategoryRequestController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/category-requests', [CategoryRequestController::class, 'store']);
 Route::middleware('auth:sanctum')->put('/category-requests/{id}', [CategoryRequestController::class, 'update']);
+Route::middleware('auth:sanctum')->patch('/category-requests/{id}/approve', [CategoryRequestController::class, 'approve']);
+Route::middleware('auth:sanctum')->patch('/category-requests/{id}/deny', [CategoryRequestController::class, 'deny']);
 Route::middleware('auth:sanctum')->delete('/category-requests/{id}', [CategoryRequestController::class, 'destroy']);
+Route::middleware('auth:sanctum')->get('/category-requests/user/{userId}', [CategoryRequestController::class, 'userRequests']);
 
 // posts
 Route::middleware('auth:sanctum')->post('posts', [PostController::class, 'store']);
