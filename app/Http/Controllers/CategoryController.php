@@ -8,22 +8,36 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required | unique:categories',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|unique:categories',
+        'admin_only' => 'required|boolean', 
+    ]);
 
-        $name = $request->input('name');
-        $category = new Category();
-        $category->name = $name;
+    $name = $request->input('name');
+    $admin_only = $request->input('admin_only'); 
 
-        return $category->save();
-    }
+    $category = new Category();
+    $category->name = $name;
+    $category->admin_only = $admin_only; 
 
-    public function index()
-    {
+    return $category->save();
+}
+
+
+public function index(Request $request)
+{
+    $userRole = $request->input('user_role', null);
+
+    if ($userRole === 'user') {
+        // Exclude admin-only categories for users with the "user" role
+        return Category::where('admin_only', false)->latest()->get();
+    } else {
+        
         return Category::latest()->get();
     }
+}
+
 
     public function show(Category $category)
     {
@@ -31,16 +45,21 @@ class CategoryController extends Controller
     }
 
     public function update(Request $request, Category $category)
-    {
-        $request->validate([
-            'name' => 'required | unique:categories',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|unique:categories',
+        'admin_only' => 'required|boolean', 
+    ]);
 
-        $name = $request->input('name');
-        $category->name = $name;
+    $name = $request->input('name');
+    $admin_only = $request->input('admin_only'); 
 
-        return $category->save();
-    }
+    $category->name = $name;
+    $category->admin_only = $admin_only; 
+
+    return $category->save();
+}
+
 
     public function destroy(Category $category)
     {

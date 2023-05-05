@@ -110,11 +110,15 @@
   
     mounted() {
       axios
-        .get("/api/categories")
-        .then((response) => (this.categories = response.data))
-        .catch((error) => {
-          console.log(error);
-        });
+    .get("/api/categories", {
+      params: {
+        user_role: localStorage.getItem("role")
+      }
+    })
+    .then((response) => (this.categories = response.data))
+    .catch((error) => {
+      console.log(error);
+    });
   
       axios
         .get("/api/posts/" + this.slug)

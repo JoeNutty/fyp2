@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RelatedPostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -40,6 +41,12 @@ Route::middleware('auth:sanctum')->post('categories/create', [CategoryController
 Route::middleware('auth:sanctum')->get('categories/{category}', [CategoryController::class, 'show']);
 Route::middleware('auth:sanctum')->put('categories/{category}', [CategoryController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('categories/{category}', [CategoryController::class, 'destroy']);
+
+// request categories
+Route::middleware('auth:sanctum')->get('/category-requests', [CategoryRequestController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/category-requests', [CategoryRequestController::class, 'store']);
+Route::middleware('auth:sanctum')->put('/category-requests/{id}', [CategoryRequestController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('/category-requests/{id}', [CategoryRequestController::class, 'destroy']);
 
 // posts
 Route::middleware('auth:sanctum')->post('posts', [PostController::class, 'store']);

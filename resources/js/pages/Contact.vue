@@ -1,61 +1,73 @@
 <template>
-    <section id="contact-us">
-        <h1>Get in Touch!</h1>
-
-        <!-- contact info -->
-        <div class="container">
-          <div class="contact-info">
-            <div class="specific-info">
-              <i class="fas fa-home"></i>
-              <div>
-                <p class="title">4th floor, Hi Center</p>
-                <p class="subtitle">Moi Avenue</p>
-              </div>
-            </div>
-            <div class="specific-info">
-              <i class="fas fa-phone-alt"></i>
-              <div>
-                <a href="">+254 720 XXX XXX </a>
-                <br />
-                <a href="">+254 721 XXX XXX</a>
-
-                <p class="subtitle">Mon to Fri 9am-6pm</p>
-              </div>
-            </div>
-            <div class="specific-info">
-              <i class="fas fa-envelope-open-text"></i>
-              <div>
-                <a href="mailto:info@alphayo.co.ke">
-                  <p class="title">info@alphayo.co.ke</p>
-                </a>
-                <p class="subtitle">Send us your query anytime!</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Contact Form -->
-          <div class="contact-form">
-            <form action="" method="">
-              <!-- Name -->
-              <label for="name"><span>Name</span></label>
-              <input type="text" id="name" name="name" value="" />
-
-              <!-- Email -->
-              <label for="email"><span>Email</span></label>
-              <input type="text" id="email" name="email" value="" />
-
-              <!-- Subject -->
-              <label for="subject"><span>Subject</span></label>
-              <input type="text" id="Subject" name="subject" value="" />
-
-              <!-- Message -->
-              <label for="message"><span>Message</span></label>
-              <textarea id="message" name="message"></textarea>
-
-               <!-- Button -->
-              <input type="submit" value="Submit" />
-            </form>
-          </div>
-        </div>
-      </section>
+  <div class="request-category">
+    <h1>Request a Category</h1>
+    <form @submit.prevent="submitRequest">
+      <div class="form-group">
+        <label for="categoryName">Category Name</label>
+        <input
+          type="text"
+          id="categoryName"
+          v-model="categoryName"
+          placeholder="Enter category name"
+          required
+        />
+      </div>
+      <button type="submit">Request Category</button>
+    </form>
+  </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      categoryName: '',
+    };
+  },
+  methods: {
+    async submitRequest() {
+      // Submit the category request to the server
+      // Display a success message or handle errors
+    },
+  },
+};
+</script>
+
+<style scoped>
+.request-category {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>

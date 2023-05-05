@@ -16,11 +16,11 @@
           <label for="">Category Type:</label>
           <div class="radio-buttons">
             <label>
-              <input type="radio" v-model="field.is_admin" value="0" />
+              <input type="radio" v-model="field.admin_only" value="0" />
               <span>Public Category</span>
             </label>
             <label>
-              <input type="radio" v-model="field.is_admin" value="1" />
+              <input type="radio" v-model="field.admin_only" value="1" />
               <span>Admin Only Category</span>
             </label>
           </div>
