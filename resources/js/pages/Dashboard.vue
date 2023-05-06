@@ -13,19 +13,24 @@
           <router-link :to="{ name: 'CreatePosts' }">Create Posts</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'DashboardPostsList' }"
-            >Posts List</router-link
-          >
+          <router-link :to="{ name: 'DashboardPostsList' }">Posts List</router-link>
+        </li>
+        <li v-if="role === 'user'">
+          <router-link :to="{ name: 'Contact' }">Request Category</router-link>
         </li>
         <li v-if="role === 'admin'">
-      <router-link :to="{ name: 'CreateCategories' }">Create Categories</router-link>
-    </li>
-    <li v-if="role === 'admin'">
-      <router-link :to="{ name: 'CategoriesList' }">Categories List</router-link>
-    </li>
-    <li v-if="role === 'admin'">
-      <router-link :to="{ name: 'ViewUsers' }">User List</router-link>
-    </li>
+          <router-link :to="{ name: 'CreateCategories' }">Create Categories</router-link>
+        </li>
+        <li v-if="role === 'admin'">
+          <router-link :to="{ name: 'CategoriesList' }">Categories List</router-link>
+        </li>
+        <li v-if="role === 'admin'">
+          <router-link :to="{ name: 'AdminCatReq' }">Categories Requests</router-link>
+        </li>
+        <li v-if="role === 'admin'">
+          <router-link :to="{ name: 'ViewUsers' }">User List</router-link>
+        </li>
+        
       </ul>
     </div>
   </div>
@@ -36,7 +41,7 @@ export default {
   data() {
     return {
       name: "",
-      role:""
+      role: ""
     };
   },
   mounted() {
@@ -81,9 +86,11 @@ export default {
   top: 30px;
   right: 40px;
 }
+
 .heading {
   margin-bottom: 5px;
 }
+
 .links {
   margin-top: 30px;
   margin-left: auto;
@@ -93,9 +100,11 @@ export default {
   padding: 15px;
   border-radius: 15px;
 }
+
 .links ul {
   list-style: none;
 }
+
 .links a {
   all: revert;
   font-size: 26px;

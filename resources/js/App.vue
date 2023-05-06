@@ -16,9 +16,7 @@
           <li>
             <router-link @click="hideOverlay" :to="{ name: 'About' }">About</router-link>
           </li>
-          <li>
-            <router-link @click="hideOverlay" :to="{ name: 'Contact' }">Contact</router-link>
-          </li>
+
           <li v-if="!loggedIn">
             <router-link @click="hideOverlay" :to="{ name: 'Register' }">Register</router-link>
           </li>
@@ -50,11 +48,7 @@
 
     <!-- Main footer -->
     <footer class="main-footer">
-      <div>
-        <a href=""><i class="fab fa-facebook-f"></i></a>
-        <a href=""><i class="fab fa-instagram"></i></a>
-        <a href=""><i class="fab fa-twitter"></i></a>
-      </div>
+
 
     </footer>
   </div>

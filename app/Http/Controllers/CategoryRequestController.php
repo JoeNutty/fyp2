@@ -29,9 +29,19 @@ class CategoryRequestController extends Controller
 
     public function index()
     {
-        $categoryRequests = CategoryRequest::with('user')->get();
+        $user = auth()->user();
+    
+        if ($user->role === 'admin') {
+            // If the user is an admin, return all category requests
+            $categoryRequests = CategoryRequest::with('user')->get();
+        } else {
+            // If the user is not an admin, return only their category requests
+            $categoryRequests = CategoryRequest::with('user')->where('user_id', $user->id)->get();
+        }
+    
         return response()->json($categoryRequests);
     }
+    
     public function approve(Request $request, $id)
     {
 

@@ -20,6 +20,7 @@
           <label for="image"><span>Image</span></label>
           <input type="file" id="image" @input="grabFile" />
           <span v-if="errors.file" class="error">{{ errors.file[0] }}</span>
+          <small>Only JPEG or JPG images are allowed.</small>
           <div class="preview">
             <img :src="url" alt="" />
           </div>

@@ -11,37 +11,41 @@
       </div>
       <button type="submit">Request Category</button>
     </form>
+    <router-link :to="{ name: 'ViewRequests' }">View requested categories <span>&#8594;</span></router-link>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { RouterLink } from 'vue-router';
 
 export default {
-  data() {
-    return {
-      categoryName: '',
-      successMessage: '',
-      success: false,
-    };
-  },
-  methods: {
-    async submitRequest() {
-      try {
-        const response = await axios.post('/api/category-requests', {
-          name: this.categoryName
-        });
-        this.successMessage = 'Request successful!';
-        this.success = true;
-        this.categoryName = '';
-        console.log(response.data);
-        // Display a success message or handle errors
-      } catch (error) {
-        console.log(error.response.data);
-        // Display an error message or handle errors
-      }
+    data() {
+        return {
+            categoryName: "",
+            successMessage: "",
+            success: false,
+        };
     },
-  },
+    methods: {
+        async submitRequest() {
+            try {
+                const response = await axios.post("/api/category-requests", {
+                    name: this.categoryName
+                });
+                this.successMessage = "Request successful!";
+                this.success = true;
+                this.categoryName = "";
+                console.log(response.data);
+                // Display a success message or handle errors
+            }
+            catch (error) {
+                console.log(error.response.data);
+                // Display an error message or handle errors
+            }
+        },
+    },
+    components: { RouterLink }
 };
 </script>
 

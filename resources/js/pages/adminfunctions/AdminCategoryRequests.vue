@@ -28,7 +28,7 @@
                     <td>{{ request.id }}</td>
                     <td>{{ request.name }}</td>
                     <td>{{ request.user_id }}</td>
-                    <td>{{ request.status }}</td>
+                    <td><span :class="`status-${request.status}`">{{ request.status }}</span></td>
                     <td>
                         <button v-if="request.status === 'pending'" @click="approveRequest(request.id)">
                             Approve
@@ -36,11 +36,16 @@
                         <button v-if="request.status === 'pending'" @click="denyRequest(request.id)">
                             Deny
                         </button>
+                        <button v-if="request.status === 'denied'" @click="approveRequest(request.id)" class="approve-button">
+                            Set to Approved
+                        </button>
+                        <button v-if="request.status === 'approved'" @click="denyRequest(request.id)" class="deny-button">
+                            Set to Denied
+                        </button>
                         <router-link v-if="request.status === 'approved'" to="/categories/create" tag="button"
                             class="blue-button">
                             Go to Create Category
                         </router-link>
-
                     </td>
                 </tr>
             </tbody>
@@ -167,12 +172,11 @@ button:hover {
     background-color: #0056b3;
 }
 
-button:last-child {
+button:not(.approve-button):not(.deny-button):last-child {
     background-color: #dc3545;
     margin-right: 0;
-
-
 }
+
 
 .message {
     padding: 1rem;
@@ -191,6 +195,7 @@ button:last-child {
     background-color: #dc3545;
     color: #fff;
 }
+
 .blue-button {
     background-color: #007bff;
     color: white;
@@ -205,6 +210,35 @@ button:last-child {
 
 .blue-button:hover {
     background-color: #0056b3;
+}.approve-button {
+  background-color: #28a745; /* green */
+  color: white;
+  /*... other styles you want to apply ...*/
+}
+
+.approve-button:hover {
+  background-color: #218838; /* darker green */
+}
+
+.deny-button {
+  background-color: #dc3545;
+  color: white;
+  /*... other styles you want to apply ...*/
+}
+
+.deny-button:hover {
+  background-color: #c82333;
+}
+.status-pending {
+    color: #ffcc00; /* yellow */
+}
+
+.status-approved {
+    color: #28a745; /* green */
+}
+
+.status-denied {
+    color: #dc3545; /* red */
 }
 
 </style>

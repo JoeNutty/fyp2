@@ -2,7 +2,7 @@
   <section class="single-blog-post">
     <h1>About this Blog</h1>
     <div class="single-blog-post-ContentImage" data-aos="fade-left">
-      <img src="images/photography.jpg" alt="" />
+      <img src="images/mainpic.jpg" alt="" />
     </div>
 
     <div>
