@@ -59,7 +59,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        if (!(auth()->user()->id === $post->user->id || auth()->user()->role === 'admin')) {
+        if (!(auth()->user()->id === $post->user->id )) {
             return abort(403);
         }
         return new PostResource($post);
@@ -72,7 +72,7 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        if (!(auth()->user()->id === $post->user->id || auth()->user()->role === 'admin')){
+        if (!(auth()->user()->id === $post->user->id )){
             return abort(403);
         }
         $request->validate([

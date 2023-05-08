@@ -20,13 +20,14 @@
                     <tr v-for="user in users" :key="user.id">
                         <td>
                             <router-link :to="{ name: 'UserDetails', params: { id: user.id } }" class="clickable-link">
-                                {{ user.name }}
+                                <span class="user-name">{{ user.name }}</span>
                             </router-link>
                         </td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ formattedDate(user.created_at) }}</td>
-                        <td>{{ user.role }}</td>
+                        <td><span class="user-email">{{ user.email }}</span></td>
+                        <td><span class="user-created-at">{{ formattedDate(user.created_at) }}</span></td>
+                        <td><span class="user-role" :class="{'rainbow-text': user.role === 'admin', 'blue-text': user.role === 'user'}">{{ user.role }}</span></td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
@@ -39,7 +40,7 @@ export default {
     data() {
         return {
             users: [],
-            
+
         }
     },
     computed: {
@@ -74,6 +75,23 @@ export default {
     max-width: 1000px;
     padding: 15px;
     border-radius: 15px;
+
+}
+
+.admin-users h1 {
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.user-email,
+.user-created-at,
+.user-role {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #888;
+    margin-left: 0.5rem;
+
 }
 
 .user-table {
@@ -110,5 +128,19 @@ export default {
     color: green;
     font-weight: bold;
     margin-bottom: 1rem;
+}
+.rainbow-text {
+  background-image: linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.blue-text {
+  color: blue;
+}
+
+.rainbow-text,
+.blue-text {
+  text-transform: uppercase;
 }
 </style>

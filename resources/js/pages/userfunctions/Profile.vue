@@ -1,107 +1,133 @@
 <template>
-    <div class="profile-container">
-        <h1>Profile</h1>
-        <div v-if="loading">
-            Loading...
-        </div>
-        <div class="item" v-else>
-            <pre>
-            <p><strong>Username:</strong>   {{ user.name }}</p>
-            <p><strong>Email:</strong>      {{ user.email }}</p>
-            <p><strong>Role:</strong>       {{ user.role }}</p>
-            <p><strong>Account Created:</strong> {{ formattedCreatedAt }}</p>
-            <button class="edit-profile-btn" @click="goToEditProfile">Edit Profile</button>
-            </pre>
-            <!-- Other user details can be added here -->
+    <div id="backend-view">
+        <div class="profile-container">
+            <h1>Profile</h1>
+            <div v-if="loading">
+                Loading...
+            </div>
+            <div class="item" v-else>
+                <dl>
+                    <dt>Username:</dt>
+                    <dd>{{ user.name }}</dd>
+                    <dt>Email:</dt>
+                    <dd>{{ user.email }}</dd>
+                    <dt>Role:</dt>
+                    <dd>{{ user.role }}</dd>
+                    <dt>Account Created:</dt>
+                    <dd>{{ formattedCreatedAt }}</dd>
+                </dl>
+                <button class="edit-profile-btn" @click="goToEditProfile">Edit Profile</button>
+                <!-- Other user details can be added here -->
+            </div>
         </div>
     </div>
 </template>
   
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
     data() {
         return {
             loading: true,
-            user: null
-        }
+            user: null,
+        };
     },
     methods: {
         goToEditProfile() {
-            this.$router.push({ name: 'EditAccount' }) // Replace 'EditProfile' with the actual name of the route
-        }
+            this.$router.push({ name: 'EditAccount' });
+        },
     },
     computed: {
         formattedCreatedAt() {
-            // Create a new Date object using the user's created_at value
-            const date = new Date(this.user.created_at)
+            const date = new Date(this.user.created_at);
 
-            // Format the date in a human-friendly format
-            return date.toLocaleDateString("en-US", {
-                day: 'numeric', month: 'long', year: 'numeric',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            })
-        }
+            return date.toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            });
+        },
     },
     async mounted() {
         try {
-            const response = await axios.get('/api/user')
-            this.user = response.data
+            const response = await axios.get('/api/user');
+            this.user = response.data;
 
-            // If the server responds with a 401 status, the user is not authenticated
             if (response.status === 401) {
-                this.$emit("updateSidebar");
-                localStorage.removeItem("authenticated");
-                this.$router.push({ name: "Login" });
+                this.$emit('updateSidebar');
+                localStorage.removeItem('authenticated');
+                this.$router.push({ name: 'Login' });
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         } finally {
-            this.loading = false
+            this.loading = false;
         }
-    }
-}
+    },
+};
 </script>
-
   
 <style scoped>
-.profile-container {
-    min-height: 100vh;
-    background: #fff;
+#backend-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f4f6;
+    height: 100vh;
 }
 
-.profile-container h1 {
-    font-weight: 300;
-    padding: 50px 0 30px 0;
+.profile-container {
+    background-color: #ffffff;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
-.profile-container .item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 300px;
-    margin: 0 auto;
+dl {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 2rem;
 }
 
-.profile-container .item p {
-    font-size: 16px;
-    margin: 15px 8px;
+dt {
+    font-weight: bold;
+    text-align: right;
 }
+
+dd {
+    text-align: left;
+}
+
+.loading {
+    font-size: 2rem;
+    text-align: center;
+}
+
 .edit-profile-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007BFF; /* Change to desired color */
-    color: #fff;
+    display: block;
+    margin: 0 auto;
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 1rem;
     cursor: pointer;
+    background-color: #007BFF;
     transition: background-color 0.3s ease;
 }
 
 .edit-profile-btn:hover {
-    background-color: #0056b3; /* Change to desired hover color */
+    background-color: #0056b3;
 }
 </style>
   

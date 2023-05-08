@@ -1,55 +1,59 @@
 <template>
-    <div class="admin-category-requests">
-        <h1>Category Requests</h1>
-        <div v-if="message" :class="['message', messageType === 'success' ? 'message--success' : 'message--error']">
-            {{ message }}
+    <div id="backend-view">
+        <div class="admin-category-requests">
+            <h1>Category Requests</h1>
+            <div v-if="message" :class="['message', messageType === 'success' ? 'message--success' : 'message--error']">
+                {{ message }}
+            </div>
+            <div class="filter">
+                <label for="status">Filter by status:</label>
+                <select id="status" v-model="statusFilter" @change="filterByStatus">
+                    <option value="">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="denied">Denied</option>
+                </select>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>User ID</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="request in filteredRequests" :key="request.id">
+                        <td>{{ request.id }}</td>
+                        <td>{{ request.name }}</td>
+                        <td>{{ request.user_id }}</td>
+                        <td><span :class="`status-${request.status}`">{{ request.status }}</span></td>
+                        <td>
+                            <button v-if="request.status === 'pending'" @click="approveRequest(request.id)">
+                                Approve
+                            </button>
+                            <button v-if="request.status === 'pending'" @click="denyRequest(request.id)">
+                                Deny
+                            </button>
+                            <button v-if="request.status === 'denied'" @click="approveRequest(request.id)"
+                                class="approve-button">
+                                Set to Approved
+                            </button>
+                            <button v-if="request.status === 'approved'" @click="denyRequest(request.id)"
+                                class="deny-button">
+                                Set to Denied
+                            </button>
+                            <router-link v-if="request.status === 'approved'" to="/categories/create" tag="button"
+                                class="blue-button">
+                                Go to Create Category
+                            </router-link>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="filter">
-            <label for="status">Filter by status:</label>
-            <select id="status" v-model="statusFilter" @change="filterByStatus">
-                <option value="">All</option>
-                <option value="pending">Pending</option>
-                <option value="approved">Approved</option>
-                <option value="denied">Denied</option>
-            </select>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>User ID</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="request in filteredRequests" :key="request.id">
-                    <td>{{ request.id }}</td>
-                    <td>{{ request.name }}</td>
-                    <td>{{ request.user_id }}</td>
-                    <td><span :class="`status-${request.status}`">{{ request.status }}</span></td>
-                    <td>
-                        <button v-if="request.status === 'pending'" @click="approveRequest(request.id)">
-                            Approve
-                        </button>
-                        <button v-if="request.status === 'pending'" @click="denyRequest(request.id)">
-                            Deny
-                        </button>
-                        <button v-if="request.status === 'denied'" @click="approveRequest(request.id)" class="approve-button">
-                            Set to Approved
-                        </button>
-                        <button v-if="request.status === 'approved'" @click="denyRequest(request.id)" class="deny-button">
-                            Set to Denied
-                        </button>
-                        <router-link v-if="request.status === 'approved'" to="/categories/create" tag="button"
-                            class="blue-button">
-                            Go to Create Category
-                        </router-link>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </template>
   
@@ -131,10 +135,20 @@ export default {
 </script>
   
 <style scoped>
+#backend-view {
+  text-align: center;
+  background-color: #f3f4f6;
+  height: 100vh;
+  padding-top: 5vh;
+}
 .admin-category-requests {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    max-width: 1000px;
+    padding: 15px;
+    border-radius: 15px;
 }
 
 .filter {
@@ -148,13 +162,14 @@ table {
 
 th,
 td {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ddd;
     text-align: left;
 }
 
 th {
-    background-color: #f5f5f5;
+    background-color: #4CAF50;
+    color: white;
 }
 
 button {
@@ -210,36 +225,38 @@ button:not(.approve-button):not(.deny-button):last-child {
 
 .blue-button:hover {
     background-color: #0056b3;
-}.approve-button {
-  background-color: #28a745; /* green */
-  color: white;
-  /*... other styles you want to apply ...*/
+}
+
+.approve-button {
+    background-color: #28a745;
+    color: white;
+
 }
 
 .approve-button:hover {
-  background-color: #218838; /* darker green */
+    background-color: #218838;
 }
 
 .deny-button {
-  background-color: #dc3545;
-  color: white;
-  /*... other styles you want to apply ...*/
+    background-color: #dc3545;
+    color: white;
+
 }
 
 .deny-button:hover {
-  background-color: #c82333;
+    background-color: #c82333;
 }
+
 .status-pending {
-    color: #ffcc00; /* yellow */
+    color: #ffcc00;
 }
 
 .status-approved {
-    color: #28a745; /* green */
+    color: #28a745;
 }
 
 .status-denied {
-    color: #dc3545; /* red */
+    color: #dc3545;
 }
-
 </style>
   

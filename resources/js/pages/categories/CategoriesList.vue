@@ -6,32 +6,31 @@
       <i class="fa fa-check"></i>
       Deleted successfully
     </div>
-    <div
-      class="item"
-      v-for="(category, index) in categories"
-      :key="category.id"
-    >
-      <span>{{ index + 1 }}</span>
-      <p>{{ category.name }}</p>
-      <div>
-        <router-link
-          class="edit-link"
-          :to="{ name: 'EditCategories', params: { id: category.id } }"
-          >Edit</router-link
-        >
-      </div>
-
-      <input
-        type="button"
-        value="Delete"
-        @click="destroy(category.id)"
-        class="delete-btn"
-      />
-    </div>
-    <div class="index-categories">
-      <router-link :to="{ name: 'CreateCategories' }"
-        >Create Categories<span>&#8594;</span></router-link
+    <div class="categories-container">
+      <div
+        class="category-item"
+        v-for="(category, index) in categories"
+        :key="category.id"
       >
+        <div class="category-number">{{ index + 1 }}</div>
+        <div class="category-name">{{ category.name }}</div>
+        <div class="category-actions">
+          <router-link
+            class="edit-link"
+            :to="{ name: 'EditCategories', params: { id: category.id } }"
+          >
+            Edit
+          </router-link>
+          <button class="delete-btn" @click="destroy(category.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="create-category">
+      <router-link :to="{ name: 'CreateCategories' }">
+        Create Categories<span>&#8594;</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -79,65 +78,73 @@ export default {
 .categories-list {
   min-height: 100vh;
   background: #fff;
+  padding: 2rem;
 }
 
 .categories-list h1 {
   font-weight: 300;
-  padding: 50px 0 30px 0;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-.categories-list .item {
+.categories-container {
   display: flex;
-  justify-content: right;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category-item {
+  display: flex;
+  gap: 1rem;
   align-items: center;
-  max-width: 300px;
-  margin: 0 auto !important;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
-.categories-list .item p {
-  font-size: 16px;
+.category-number {
+  font-size: 1rem;
+  font-weight: bold;
 }
 
-.categories-list .item p,
-.categories-list .item div,
-.categories-list .item {
-  margin: 15px 8px;
+.category-name {
+  font-size: 1.2rem;
+  flex-grow: 1;
 }
 
-.categories ul li {
-  list-style: none;
-  background-color: #494949;
-  margin: 20px 5px;
-
-  border-radius: 15px;
-}
-
-.categories ul {
+.category-actions {
   display: flex;
-  justify-content: center;
+  gap: 1rem;
 }
 
-.categories a {
-  color: white;
-  padding: 10px 20px;
-  display: inline-block;
-}
-
-.create-categories a,
-.index-categories a {
-  all: revert;
-  margin: 20px 0;
-  display: inline-block;
+.edit-link,
+.delete-btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
   text-decoration: none;
 }
 
-.create-categories a span,
-.index-categories a span {
-  font-size: 22px;
+.edit-link {
+  background-color: #3498db;
+  color: #fff;
 }
 
-.index-categories {
+.delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+.create-category {
+  margin-top: 2rem;
   text-align: center;
+}
+
+.create-category a {
+  text-decoration: none;
+  font-size: 1.2rem;
 }
 </style>

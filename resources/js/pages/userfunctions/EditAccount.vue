@@ -1,23 +1,25 @@
 <template>
-    <div class="edit-profile-container">
-        <h1>Edit Profile</h1>
-        <div v-if="loading">
-            Loading...
-        </div>
-        <div v-else>
-            <form @submit.prevent="updateProfile">
-                <div>
-                    <label for="name">Username:</label>
-                    <input type="text" id="name" v-model="user.name">
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" v-model="user.email">
-                </div>
-                <!-- Add more fields as needed -->
+    <div id="backend-view">
+        <div class="edit-profile-container">
+            <h1>Edit Profile</h1>
+            <div v-if="loading">
+                Loading...
+            </div>
+            <div v-else>
+                <form @submit.prevent="updateProfile">
+                    <div>
+                        <label for="name">Username:</label>
+                        <input type="text" id="name" v-model="user.name">
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" v-model="user.email">
+                    </div>
+                    <!-- Add more fields as needed -->
 
-                <button type="submit">Save Changes</button>
-            </form>
+                    <button type="submit">Save Changes</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -57,15 +59,26 @@ export default {
 </script>
   
 <style scoped>
-.edit-profile-container {
-    min-height: 100vh;
-    background: #fff;
+#backend-view {
+    text-align: center;
+    background-color: #f3f4f6;
+    height: 100vh;
+    padding-top: 15vh;
 }
 
-.edit-profile-container h1 {
-    font-weight: 300;
-    padding: 50px 0 30px 0;
-    text-align: center;
+.edit-profile-container {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .edit-profile-container form {
@@ -78,6 +91,7 @@ export default {
 
 .edit-profile-container form div {
     margin: 15px 0;
+    width: 100%;
 }
 
 .edit-profile-container form label {
@@ -96,6 +110,15 @@ export default {
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-container form button:hover {
+    background-color: #0056b3;
 }
 </style>
   

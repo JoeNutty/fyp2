@@ -3,6 +3,10 @@
     <!-- sidebar -->
     <div class="sidebar" :class="{ showOverlay: overlayVisibility }">
       <span class="closeButton" @click="hideOverlay">&times;</span>
+      <div class="logo-container">
+        <img src="images/logo.png" alt="Logo" class="brand-logo" />
+      </div>
+
       <p class="brand-title"><strong>Scam Awareness Blog</strong></p>
 
       <div class="side-links">
@@ -82,7 +86,7 @@ export default {
         this.editSuccess = false;
       }, 2500);
     },
-    
+
 
   },
 
@@ -96,6 +100,19 @@ export default {
 };
 </script>
 <style scoped>
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.brand-logo {
+  max-width: 100px;
+  margin-bottom: -3rem;
+  margin-top: 3rem;
+}
+
 .showOverlay {
   width: 100%;
   z-index: 5;

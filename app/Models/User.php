@@ -69,10 +69,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(CategoryRequest::class);
     }
-    public function reportedPosts()
-    {
-        return $this->hasMany(PostReport::class);
-    }
+
 
     
 }
