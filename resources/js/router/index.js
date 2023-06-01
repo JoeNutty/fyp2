@@ -41,7 +41,7 @@ const routes = [
         path: "/contact",
         name: "Contact",
         component: Contact,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true, allowedRoles: ['user'] }
     },
     {
         path: "/blog/:slug",
@@ -78,7 +78,7 @@ const routes = [
         name: 'ViewRequests',
         component: ViewRequests,
         meta: { requiresAuth: true },
-      },
+    },
     {
         path: "/dashboard",
         name: "Dashboard",
@@ -173,6 +173,12 @@ router.beforeEach((to, from) => {
     else if (to.meta.requiresAdmin && role !== 'admin') {
         return {
             name: "Home", // Redirect to home or any other route
+        };
+    }
+    // If the route has specified allowedRoles and the user's role is not in allowedRoles
+    else if (to.meta.allowedRoles && !to.meta.allowedRoles.includes(role)) {
+        return {
+            name: "Dashboard", // Redirect to home or any other route
         };
     }
 });

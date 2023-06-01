@@ -35,6 +35,7 @@ export default {
           .get("/api/user")
           .then((response) => {
             localStorage.setItem("role", response.data.role);
+            localStorage.setItem("userId", response.data.id);
             this.$router.push({ name: "Dashboard" });
             localStorage.setItem("authenticated", "true");
             this.$emit("updateSidebar");

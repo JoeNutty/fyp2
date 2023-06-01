@@ -8,7 +8,7 @@
     </p>
 
     <div class="single-blog-post-ContentImage" data-aos="fade-left">
-      <img :src="`/${post.imagePath}`" alt="" />
+      <img :src="`/${post.imagePath}`" alt="" @click="openImageInNewTab(`/${post.imagePath}`)" />
     </div>
 
     <div class="about-text">
@@ -45,6 +45,11 @@ export default {
       post: {},
       relatedPosts: [],
     };
+  },
+  methods: {
+    openImageInNewTab(imagePath) {
+      window.open(imagePath, '_blank');
+    }
   },
   mounted() {
     axios

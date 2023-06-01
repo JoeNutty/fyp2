@@ -3,9 +3,7 @@
     <!-- sidebar -->
     <div class="sidebar" :class="{ showOverlay: overlayVisibility }">
       <span class="closeButton" @click="hideOverlay">&times;</span>
-      <div class="logo-container">
-        <img src="images/logo.png" alt="Logo" class="brand-logo" />
-      </div>
+
 
       <p class="brand-title"><strong>Scam Awareness Blog</strong></p>
 

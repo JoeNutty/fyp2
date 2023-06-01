@@ -22,9 +22,10 @@
           <router-link class="view-link" :to="{ name: 'SingleBlog', params: { slug: post.slug } }">
             View
           </router-link>
-          <router-link class="edit-link" :to="{ name: 'EditPosts', params: { slug: post.slug } }">
-            Edit
-          </router-link>
+          <router-link v-if="isAuthor(post.user)" class="edit-link"
+  :to="{ name: 'EditPosts', params: { slug: post.slug } }">
+  Edit
+</router-link>
           <button class="delete-btn" @click="destroy(post.slug)">
             Delete
           </button>
@@ -48,6 +49,7 @@ export default {
       success: false,
       searchQuery: '',
       searchAuthor: '',
+      authenticatedUserName: '',
     };
   },
   computed: {
@@ -84,14 +86,23 @@ export default {
     fetchPosts() {
       axios
         .get("/api/dashboard-posts")
-        .then((response) => (this.posts = response.data.data))
+        .then((response) => {this.posts = response.data.data})
         .catch((error) => {
           console.log(error);
         });
     },
+    isAuthor(postUserName) {
+    return this.authenticatedUserName === postUserName;
+  },
   },
   mounted() {
     this.fetchPosts();
+    axios
+    .get("/api/user")
+    .then((response) => (this.authenticatedUserName = response.data.name))
+    .catch((error) => {
+      console.log(error);
+    });
   },
 };
 </script>

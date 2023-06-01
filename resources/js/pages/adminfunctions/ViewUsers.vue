@@ -10,6 +10,7 @@
             <table class="user-table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Account Created At</th>
@@ -18,6 +19,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="user in users" :key="user.id">
+                        <td><span class="user-id">{{ user.id }}</span></td>
                         <td>
                             <router-link :to="{ name: 'UserDetails', params: { id: user.id } }" class="clickable-link">
                                 <span class="user-name">{{ user.name }}</span>
@@ -143,4 +145,5 @@ export default {
 .blue-text {
   text-transform: uppercase;
 }
+
 </style>
